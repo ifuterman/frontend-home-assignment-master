@@ -12,7 +12,7 @@ abstract class Option<A> {
   Either<dynamic, A> operator %(ifNone) => toEither(() => ifNone);
   A operator |(A dflt) => getOrElse(() => dflt);
 
-  Option<B> map<B>(B Function(A a) f) => fold(none, (A a) => some(f(a)));
+  Option<B> map<B>(B Function(A a) f) => fold(none, (a) => some(f(a)));
   Option<B> andThen<B>(Option<B> next) => fold(none, (_) => next);
 
   bool isSome() => fold(() => false, (_) => true);
@@ -32,8 +32,10 @@ class Some<A> extends Option<A> {
   @override
   B fold<B>(B Function() ifNone, B Function(A a) ifSome) => ifSome(_a);
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(other) => other is Some && other._a == _a;
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => _a.hashCode;
 }
 
@@ -42,8 +44,10 @@ class None<A> extends Option<A> {
   @override
   B fold<B>(B Function() ifNone, B Function(A a) ifSome) => ifNone();
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(other) => other is None;
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => 0;
 }
 

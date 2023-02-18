@@ -12,13 +12,13 @@ abstract class Either<L, R> {
   R getOrElse(R Function() dflt) => fold((_) => dflt(), id);
   R operator |(R dflt) => getOrElse(() => dflt);
   Either<L2, R> leftMap<L2>(L2 Function(L l) f) =>
-      fold((L l) => left(f(l)), right);
+      fold((l) => left(f(l)), right);
   Option<R> toOption() => fold((_) => none(), some);
   bool isLeft() => fold((_) => true, (_) => false);
   bool isRight() => fold((_) => false, (_) => true);
   Either<R, L> swap() => fold(right, left);
 
-  Either<L, R2> map<R2>(R2 Function(R r) f) => fold(left, (R r) => right(f(r)));
+  Either<L, R2> map<R2>(R2 Function(R r) f) => fold(left, (r) => right(f(r)));
   Either<L, R2> bind<R2>(Function1<R, Either<L, R2>> f) => fold(left, f);
   Either<L, R2> flatMap<R2>(Function1<R, Either<L, R2>> f) => fold(left, f);
   Either<L, R2> andThen<R2>(Either<L, R2> next) => fold(left, (_) => next);
@@ -36,8 +36,10 @@ class Left<L, R> extends Either<L, R> {
   @override
   B fold<B>(B Function(L l) ifLeft, B Function(R r) ifRight) => ifLeft(_l);
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(other) => other is Left && other._l == _l;
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => _l.hashCode;
 }
 
@@ -48,8 +50,10 @@ class Right<L, R> extends Either<L, R> {
   @override
   B fold<B>(B Function(L l) ifLeft, B Function(R r) ifRight) => ifRight(_r);
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   bool operator ==(other) => other is Right && other._r == _r;
   @override
+  //ignore: avoid_equals_and_hash_code_on_mutable_classes
   int get hashCode => _r.hashCode;
 }
 

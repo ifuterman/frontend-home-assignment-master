@@ -61,13 +61,13 @@ extension NumX on num {
 extension StringX on String {
   /// Обрезать строку, если больше максимальной длины
   String crop(int maxLength) {
-    assert(maxLength > -1);
+    assert(maxLength > -1, 'Must be positive');
     return length <= maxLength ? this : substring(0, maxLength);
   }
 
   ///
   String safeEnds(int endLength, {String delimiter = '..'}) {
-    assert(endLength > -1);
+    assert(endLength > -1, 'Must be positive');
     if (endLength == 0) {
       return this;
     }
