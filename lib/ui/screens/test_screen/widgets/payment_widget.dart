@@ -68,9 +68,14 @@ class PaymentWidgetController extends RiverpodController<PaymentWidget> {
   }
 
   String get amount {
+    final amount = controller.plan.payments[paymentIndex].amount;
+    final decimalDigits = amount == amount.roundToDouble() ? 0 : 2;
     return NumberFormat.currency(
-            locale: 'en_us', name: 'us', symbol: '\$', decimalDigits: 2)
-        .format(controller.plan.payments[paymentIndex].amount);
+            locale: 'en_us',
+            name: 'us',
+            symbol: '\$',
+            decimalDigits: decimalDigits)
+        .format(amount);
   }
 
   Future<void> onButtonPressed(BuildContext context, WidgetRef ref) async {
@@ -78,7 +83,7 @@ class PaymentWidgetController extends RiverpodController<PaymentWidget> {
     if (paymentIndex == 0) {
       final date = controller.plan.payments[paymentIndex].date;
       firstDate = DateTime(date.year, date.month, 1);
-      if(firstDate.isBefore(DateTime.now())){
+      if (firstDate.isBefore(DateTime.now())) {
         firstDate = DateTime.now();
       }
     } else {
@@ -95,14 +100,13 @@ class PaymentWidgetController extends RiverpodController<PaymentWidget> {
       lastDate = controller.plan.payments[paymentIndex + 1].date
           .subtract(const Duration(days: 1));
     }
-    debugPrint('PaymentWidgetController.onButtonPressed lastDate$lastDate initialDate${controller.plan.payments[paymentIndex].date}');
     final date = await showDatePicker(
-        context: context,
-        initialDate: controller.plan.payments[paymentIndex].date,
-        firstDate: firstDate,
-        lastDate: lastDate,
+      context: context,
+      initialDate: controller.plan.payments[paymentIndex].date,
+      firstDate: firstDate,
+      lastDate: lastDate,
     );
-    if(date != null){
+    if (date != null) {
       controller.changePaymentDate(paymentIndex, date);
       ref.read(dateNotifierProvider.notifier).setDate(date);
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../domain/payment_plan.dart';
 import '../../common/app_colors.dart';
 import '../../common/app_extensions.dart';
 import '../../common/app_icons.dart';
@@ -12,8 +13,8 @@ import 'widgets/payment_plan_widget.dart';
 
 class TestScreen extends StatelessWidget {
   late final TestScreenController controller;
-  TestScreen({super.key}) {
-    controller = TestScreenController();
+  TestScreen({super.key, required PaymentPlan plan}) {
+    controller = TestScreenController(plan);
   }
 
   @override
@@ -45,8 +46,7 @@ class TestScreen extends StatelessWidget {
           10.sbHeight,
           Container(
               padding: EdgeInsets.symmetric(horizontal: 35.w),
-              child: PaymentPlanWidget(controller: controller)
-          ),
+              child: PaymentPlanWidget(controller: controller)),
           91.sbHeight,
           AppButton(
               onPressed: controller.onSplitMyRent,
@@ -58,7 +58,9 @@ class TestScreen extends StatelessWidget {
               boxShadow: [AppColors.buttonShadow],
               child: Text(
                 AppLiterals.testScreenSplitRent,
-                style: AppStyles.text16.andWeight(FontWeight.w600).andColor(AppColors.textWhite),
+                style: AppStyles.text16
+                    .andWeight(FontWeight.w600)
+                    .andColor(AppColors.textWhite),
               ))
         ],
       ),

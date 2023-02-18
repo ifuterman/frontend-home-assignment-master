@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 
+import '../splash_screen.dart';
 import '../test_screen/test_screen.dart';
 import 'root_router.gr.dart';
 
 @MaterialAutoRouter(replaceInRouteName: 'Screen,Route', routes: <AutoRoute>[
-  AutoRoute(page: TestScreen, initial: true),
+  AutoRoute(page: SplashScreen, initial: true),
+  AutoRoute(page: TestScreen, initial: false),
 ]
     // replaceInRouteName: 'Screen|Dialog,Route',
     // routes: <AutoRoute>[

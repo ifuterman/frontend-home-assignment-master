@@ -16,17 +16,16 @@ class AppButton extends StatelessWidget {
 
   const AppButton(
       {Key? key,
-        this.width = 50,
-        this.height = 50,
-        required this.onPressed,
-        this.color,
-        this.borderRadius = 10,
-        required this.child,
-        this.borderColor = AppColors.defaultBorderColor,
-        this.borderWidth = 2,
-        this.gradient,
-        this.boxShadow
-      })
+      this.width = 50,
+      this.height = 50,
+      required this.onPressed,
+      this.color,
+      this.borderRadius = 10,
+      required this.child,
+      this.borderColor = AppColors.defaultBorderColor,
+      this.borderWidth = 2,
+      this.gradient,
+      this.boxShadow})
       : super(key: key);
 
   @override
