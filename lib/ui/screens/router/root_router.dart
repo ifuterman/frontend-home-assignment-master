@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 
-import '../splash_screen.dart';
+import '../splash_screen/splash_screen.dart';
 import '../test_screen/test_screen.dart';
 import 'root_router.gr.dart';
 

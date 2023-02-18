@@ -11,12 +11,19 @@ import '../../common/widgets/app_button.dart';
 import 'test_screen_controller.dart';
 import 'widgets/payment_plan_widget.dart';
 
-class TestScreen extends StatelessWidget {
+class TestScreen extends StatefulWidget {
   late final TestScreenController controller;
   TestScreen({super.key, required PaymentPlan plan}) {
     controller = TestScreenController(plan);
   }
 
+  @override
+  State<StatefulWidget> createState() {
+    return _TestScreenState();
+  }
+}
+
+class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -35,7 +42,7 @@ class TestScreen extends StatelessWidget {
           ),
           8.sbHeight,
           Text(
-            controller.amount,
+            widget.controller.amount,
             style: AppStyles.text20.andWeight(FontWeight.w400),
           ),
           65.sbHeight,
@@ -46,10 +53,10 @@ class TestScreen extends StatelessWidget {
           10.sbHeight,
           Container(
               padding: EdgeInsets.symmetric(horizontal: 35.w),
-              child: PaymentPlanWidget(controller: controller)),
+              child: PaymentPlanWidget(controller: widget.controller)),
           91.sbHeight,
           AppButton(
-              onPressed: controller.onSplitMyRent,
+              onPressed: widget.controller.onSplitMyRent,
               gradient: AppColors.defaultGradient,
               width: 304.w,
               height: 41.h,
@@ -65,5 +72,17 @@ class TestScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    widget.controller.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.init();
   }
 }

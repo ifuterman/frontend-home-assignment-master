@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
+import '../dto/payment_dates_dto.dart';
 import 'payment.dart';
 
 part 'payment_plan.freezed.dart';
@@ -16,3 +18,14 @@ class PaymentPlan with _$PaymentPlan {
 }
 
 enum PaymentPlanType { twoPayment, threePayment, fourPayment }
+
+extension PaymentPlanX on PaymentPlan {
+  PaymentDatesDto toDto() {
+    final formatter = DateFormat('yyyy-MM-ddThh:mm.000');
+    final dates = <String>[];
+    for (final p in payments) {
+      dates.add('${formatter.format(p.date)}Z');
+    }
+    return PaymentDatesDto(id: int.tryParse(id) ?? 0, dates: dates);
+  }
+}

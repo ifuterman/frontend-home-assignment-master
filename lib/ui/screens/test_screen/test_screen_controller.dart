@@ -1,25 +1,74 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../../bloc/payment_bloc.dart';
 import '../../../domain/payment.dart';
 import '../../../domain/payment_plan.dart';
+import '../../../service/test_service.dart';
+import '../../../utils/subscriber_mixin.dart';
+import '../router/root_router.dart';
 
-class TestScreenController {
+class TestScreenController with SubscriberMixin {
   final formatter = NumberFormat.currency(
       locale: 'en_us', name: 'us', symbol: '\$', decimalDigits: 2);
   PaymentPlan _plan;
-  // PaymentPlan _plan = PaymentPlan(
-  //     id: '1',
-  //     amount: 1500,
-  //     type: PaymentPlanType.twoPayment,
-  //     payments: [
-  //       Payment(amount: 750, date: DateTime(DateTime.now().year, 3, 5)),
-  //       Payment(amount: 750, date: DateTime(DateTime.now().year, 3, 15))
-  //     ]);
   TestScreenController(this._plan);
   String get amount {
     return formatter.format(plan.amount);
   }
 
   PaymentPlan get plan => _plan;
+
+  void init() {
+    debugPrint('TestScreenController.init');
+    subscribeIt(appService.paymentBloc.stream.listen(processPaymentState));
+  }
+
+  void dispose() {
+    unsubscribeAll();
+  }
+
+  void processPaymentState(PaymentPlanState state) {
+    debugPrint('TestScreenController.processPaymentState');
+    state.maybeWhen(
+        sent: (res) {
+          res.fold((l) {
+            Widget okButton = TextButton(
+              onPressed: () {
+                Navigator.of(appContext).pop();
+              },
+              child: const Text("OK"),
+            );
+
+            // set up the AlertDialog
+            final alert = AlertDialog(
+              title: const Text('ERROR'),
+              content: Text(l),
+              actions: [
+                okButton,
+              ],
+            );
+            showDialog(context: appContext, builder: (context) => alert);
+          }, (r) {
+            Widget okButton = TextButton(
+              onPressed: () {
+                Navigator.of(appContext).pop();
+              },
+              child: const Text("OK"),
+            );
+
+            // set up the AlertDialog
+            final alert = AlertDialog(
+              title: const Text('MESSAGE'),
+              content: const Text('SUCCESS'),
+              actions: [
+                okButton,
+              ],
+            );
+            showDialog(context: appContext, builder: (context) => alert);
+          });
+        },
+        orElse: () {});
+  }
 
   void changePlanType(PaymentPlanType type) {
     if (type == _plan.type) {
@@ -62,5 +111,8 @@ class TestScreenController {
     _plan = _plan.copyWith(payments: payments);
   }
 
-  void onSplitMyRent() async {}
+  void onSplitMyRent() {
+    debugPrint('TestScreenController.onSplitMyRent');
+    appService.sendPaymentDates(plan);
+  }
 }
