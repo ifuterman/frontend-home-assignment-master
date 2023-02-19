@@ -81,18 +81,14 @@ class PaymentWidgetController extends RiverpodController<PaymentWidget> {
   Future<void> onButtonPressed(BuildContext context, WidgetRef ref) async {
     DateTime firstDate;
     if (paymentIndex == 0) {
-      final date = controller.plan.payments[paymentIndex].date;
-      firstDate = DateTime(date.year, date.month, 1);
-      if (firstDate.isBefore(DateTime.now())) {
-        firstDate = DateTime.now();
-      }
+      firstDate = DateTime.now();
     } else {
       firstDate = controller.plan.payments[paymentIndex - 1].date
           .add(const Duration(days: 1));
     }
     DateTime lastDate;
     if (paymentIndex == controller.plan.payments.length - 1) {
-      final month = controller.plan.payments[paymentIndex].date.month;
+      final month = controller.plan.payments[0].date.month + 1;
       final year = DateTime.now().year;
       lastDate =
           month < 12 ? DateTime(year, month + 1, 0) : DateTime(year + 1, 1, 0);
