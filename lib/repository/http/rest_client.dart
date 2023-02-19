@@ -7,12 +7,12 @@ import '../../dto/payment_dates_dto.dart';
 
 part 'rest_client.g.dart';
 
-@RestApi(baseUrl: "https://script.google.com/macros/s/")
+@RestApi()
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
 
   @GET(
-      'AKfycbxMUT8QCMuTWRiKDUx34gSzu_1O29stPJpZCpq1UWVN3q2jBpgQuw8eLH_i5BwkOYLmFA/exec')
+      'https://a21wk56avh.execute-api.us-east-1.amazonaws.com/default/flutter-home-exam')
   Future<AccountInfoDto> getAccountInfo();
 
   @Headers(<String, String>{
@@ -20,10 +20,6 @@ abstract class RestClient {
     'Content-Length': '-1'
   })
   @POST(
-      'AKfycbxMUT8QCMuTWRiKDUx34gSzu_1O29stPJpZCpq1UWVN3q2jBpgQuw8eLH_i5BwkOYLmFA/exec')
-  Future<String> sendPaymentDatesInfo(@Body() PaymentDatesDto paymentDates);
-
-  @POST(
-      'AKfycbxMUT8QCMuTWRiKDUx34gSzu_1O29stPJpZCpq1UWVN3q2jBpgQuw8eLH_i5BwkOYLmFA/exec')
-  Future<void> sendPaymentDatesInfoX(@Body() PaymentDatesDto paymentDates);
+      'https://a21wk56avh.execute-api.us-east-1.amazonaws.com/default/flutter-home-exam')
+  Future<String?> sendPaymentDatesInfo(@Body() PaymentDatesDto paymentDates);
 }

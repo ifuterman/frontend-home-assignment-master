@@ -23,7 +23,7 @@ class Repository {
     try {
       final dto = plan.toDto();
       final res = await client.sendPaymentDatesInfo(dto);
-      if (res.isEmpty) {
+      if (res == null || res.isEmpty) {
         return right('');
       }
       return left(res);
