@@ -1,6 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:bloc/bloc.dart';
+
 import '../domain/payment_plan.dart';
 import '../repository/repository.dart';
 import '../utils/safe_coding/either.dart';

@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:frontend_home_assignment/dto/payment_plan_dto.dart';
 
 import '../domain/payment.dart';
 import '../domain/payment_plan.dart';
 import '../utils/safe_coding/either.dart';
 import 'payment_dto.dart';
+import 'payment_plan_dto.dart';
 
 part 'account_info_dto.g.dart';
 
