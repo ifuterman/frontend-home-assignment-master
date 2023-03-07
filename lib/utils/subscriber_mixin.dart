@@ -7,6 +7,7 @@ mixin SubscriberMixin {
   }
 
   FutureOr unsubscribeAll() {
+    // TODO Iosif: is this function really the opposite of subscribeIt?
     for (final ss in subscriptions) {
       ss.cancel();
     }

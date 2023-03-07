@@ -17,6 +17,10 @@ abstract class RiverpodWidget<C extends RiverpodController>
 }
 
 abstract class RiverpodController<W extends ConsumerWidget> {
+  /// TODO Iosif: Use of late is prown to errors. You allow a developer to
+  /// extend RiverpodController but you expect him to remember to initialize
+  /// "widget" himself. Also, it's not clear at all what's the purpose of this
+  /// field as it's not used anywhere.
   late final W widget;
 }
 

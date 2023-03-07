@@ -47,6 +47,9 @@ class TestScreenController with SubscriberMixin {
                 okButton,
               ],
             );
+
+            /// TODO Iosif: There's no reason to use appContext. You should use
+            /// the context of the widget you're refering to.
             showDialog(context: appContext, builder: (context) => alert);
           }, (r) {
             Widget okButton = TextButton(
@@ -81,6 +84,8 @@ class TestScreenController with SubscriberMixin {
     final sum = amount * newPaymentCount;
     final dif = sum == _plan.amount ? 0 : _plan.amount - sum;
     for (var i = 0; i < payments.length; i++) {
+      /// TODO  Iosif: I didn't understand the point of the for loop if you only
+      /// change the first element
       payments[i] =
           payments[i].copyWith(amount: i == 0 ? amount + dif : amount);
     }
@@ -90,6 +95,8 @@ class TestScreenController with SubscriberMixin {
         payments.removeAt(1);
       }
     } else if (type.index > _plan.type.index) {
+      /// TODO Iosif: the outcome might be the same date in both the 2nd and
+      /// the 3rd payment
       var newDate = _plan.payments[0].date.add(const Duration(days: 1));
       var index = 1;
       //here we are adding new payments

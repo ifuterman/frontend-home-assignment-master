@@ -24,6 +24,7 @@ extension PaymentPlanX on PaymentPlan {
     final formatter = DateFormat('yyyy-MM-ddThh:mm.000');
     final dates = <String>[];
     for (final p in payments) {
+      // TODO Iosif - better to call p.date.toIso8601String()
       dates.add('${formatter.format(p.date)}Z');
     }
     return PaymentDatesDto(id: int.tryParse(id) ?? 0, dates: dates);

@@ -20,6 +20,9 @@ class PaymentDto {
 extension PaymentDtoX on PaymentDto {
   Payment toDomain() {
     final value = (amount ?? 0).toDouble() / 100;
+
+    /// TODO Iosif: The use of " ?? DateTime.now()" can lead to incorrect output
+    /// in case of a server error
     return Payment(
         amount: value, date: DateTime.tryParse(date ?? '') ?? DateTime.now());
   }

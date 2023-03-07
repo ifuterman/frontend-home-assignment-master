@@ -23,6 +23,10 @@ class AccountInfoDto {
 
 extension AccountInfoDtoX on AccountInfoDto {
   Either<String, PaymentPlan> toDomain() {
+    /// TODO Iosif: Don't use force unwrap unless it's absolutely necessary
+    /// as it's prown to errors in the future.
+    /// Add "final paymentPlans = this.paymentPlans;"
+    /// Also, there is a lot of code duplication.
     final value = (amount ?? 0).toDouble() / 100;
     if (paymentPlans == null || paymentPlans!.isEmpty) {
       return left('Wrong data format');

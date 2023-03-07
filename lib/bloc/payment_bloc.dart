@@ -36,6 +36,9 @@ class PaymentEvent with _$PaymentEvent {
 
 @freezed
 class PaymentPlanState with _$PaymentPlanState {
+  /* TODO Iosif: The initial state isn't well defined and used. In practice you
+  don't use it at all - you emit it before the calling the endpoints but you
+  don't consume or handle it anywhere. */
   const factory PaymentPlanState.initial() = _PaymentPlanStateInitial;
   const factory PaymentPlanState.fetched(Either<String, PaymentPlan> result) =
       _PaymentPlanStateFetched;
